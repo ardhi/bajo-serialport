@@ -8,7 +8,7 @@ async function start () {
   const instances = []
 
   for (const c of config.connections) {
-    const opts = _.pick(c, ['path', 'baudRate'])
+    const opts = _.omit(c, ['name', 'options'])
     const client = { port: new SerialPort(opts) }
     client.parser = client.port.pipe(new ReadlineParser({
       delimiter: '\r\n'
