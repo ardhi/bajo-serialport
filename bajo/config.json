@@ -1,4 +1,7 @@
 {
+  "single": true,
+  "name": "bajoSp",
   "connections": [],
-  "broadcasts": []
+  "broadcasts": [],
+  "dependency": ["bajo-emitter"]
 }

@@ -1,6 +1,6 @@
 {
-  "name": "bajo-serialport",
-  "version": "0.0.1",
+  "name": "bajo-sp",
+  "version": "0.1.0",
   "description": "Serialport for Bajo Framework",
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ardhi/bajo-serialport.git"
+    "url": "git+https://github.com/ardhi/bajo-sp.git"
   },
   "keywords": [
     "serial",
@@ -21,9 +21,9 @@
   "author": "Ardhi Lukianto <ardhi@lukianto.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ardhi/bajo-serialport/issues"
+    "url": "https://github.com/ardhi/bajo-sp/issues"
   },
-  "homepage": "https://github.com/ardhi/bajo-serialport#readme",
+  "homepage": "https://github.com/ardhi/bajo-sp#readme",
   "dependencies": {
     "serialport": "^11.0.0"
   }
