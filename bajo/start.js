@@ -2,7 +2,8 @@ import * as sp from 'serialport'
 const { SerialPort } = sp
 
 async function start () {
-  const { _, getConfig } = this.bajo.helper
+  const { getPkg, getConfig } = this.bajo.helper
+  const _ = await getPkg('lodash')
   const { events } = this.bajoSp.helper
   const { emit } = this.bajoEmitter.helper
   const config = getConfig('bajoSp')

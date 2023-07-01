@@ -3,7 +3,8 @@ const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterBy
   'SpacePacketParser']
 
 async function connBuilder (c) {
-  const { _, error } = this.bajo.helper
+  const { getPkg, error } = this.bajo.helper
+  const _ = await getPkg('lodash')
   if (_.isString(c)) c = { url: c }
   if (!_.has(c, 'path')) throw error('Connection must have path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: c })
   if (!_.has(c, 'name')) c.name = c.path
@@ -14,7 +15,8 @@ async function connBuilder (c) {
 }
 
 async function prepBroadcasts () {
-  const { _, getConfig, error, getItemByName } = this.bajo.helper
+  const { getPkg, getConfig, error, getItemByName } = this.bajo.helper
+  const _ = await getPkg('lodash')
   const opts = getConfig('bajoSp')
   let bcs = opts.broadcasts || []
   if (_.isPlainObject(bcs)) bcs = [bcs]
@@ -29,7 +31,7 @@ async function prepBroadcasts () {
 }
 
 async function init () {
-  const { _, buildConnections } = this.bajo.helper
+  const { buildConnections } = this.bajo.helper
   await prepBroadcasts.call(this)
   await buildConnections('bajoSp', connBuilder, ['name', 'path'])
 }
