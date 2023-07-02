@@ -2,5 +2,5 @@
   "name": "bajoSp",
   "connections": [],
   "broadcasts": [],
-  "dependency": ["bajo-emitter"]
+  "dependencies": ["bajo-emitter"]
 }
