@@ -17,7 +17,7 @@ async function connBuilder (c) {
 async function prepBroadcasts () {
   const { importPackage, getConfig, error, getItemByName } = this.bajo.helper
   const _ = await importPackage('lodash')
-  const opts = getConfig('bajoSp')
+  const opts = getConfig('bajoSerialport')
   let bcs = opts.broadcasts || []
   if (_.isPlainObject(bcs)) bcs = [bcs]
   for (const b of bcs) {
@@ -33,7 +33,7 @@ async function prepBroadcasts () {
 async function init () {
   const { buildConnections } = this.bajo.helper
   await prepBroadcasts.call(this)
-  await buildConnections('bajoSp', connBuilder, ['name', 'path'])
+  await buildConnections('bajoSerialport', connBuilder, ['name', 'path'])
 }
 
 export default init

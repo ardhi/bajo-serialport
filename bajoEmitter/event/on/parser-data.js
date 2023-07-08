@@ -1,12 +1,12 @@
 async function onParserData (conn, message, ...args) {
   const { getConfig, _, log } = this.bajo.helper
   const { broadcast } = this.bajoEmitter.helper
-  const cfg = getConfig('bajoSp')
+  const cfg = getConfig('bajoSerialport')
   for (const b of cfg.broadcasts) {
     if (b.connection !== conn.name) continue
     const c = _.find(cfg.connections, { name: b.connection })
     const meta = {
-      sender: `${conn.path}@bajoSp.${conn.name}`,
+      sender: `${conn.path}@bajoSerialport.${conn.name}`,
       receiver: b.receiver
     }
     const sentences = _.get(c, 'options.decodeNmea', [])

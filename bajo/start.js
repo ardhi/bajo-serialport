@@ -4,9 +4,9 @@ const { SerialPort } = sp
 async function start () {
   const { importPackage, getConfig } = this.bajo.helper
   const _ = await importPackage('lodash')
-  const { events } = this.bajoSp.helper
+  const { events } = this.bajoSerialport.helper
   const { emit } = this.bajoEmitter.helper
-  const config = getConfig('bajoSp')
+  const config = getConfig('bajoSerialport')
   const instances = []
 
   for (const c of config.connections) {
@@ -19,13 +19,13 @@ async function start () {
       for (const evt of events[k]) {
         client[k].on(evt, async (...args) => {
           const key = _.camelCase(`${k} ${evt}`)
-          emit(`bajoSp.${key}`, c, ...args)
+          emit(`bajoSerialport.${key}`, c, ...args)
         })
       }
     }
     instances.push({ name: c.name, client })
   }
-  this.bajoSp.instances = instances
+  this.bajoSerialport.instances = instances
 }
 
 export default start

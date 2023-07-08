@@ -1,5 +1,5 @@
 {
-  "name": "bajoSp",
+  "name": "bajoSerialport",
   "connections": [],
   "broadcasts": [],
   "dependencies": ["bajo-emitter"]
