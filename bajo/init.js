@@ -3,8 +3,8 @@ const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterBy
   'SpacePacketParser']
 
 async function connBuilder (c) {
-  const { importPackage, error } = this.bajo.helper
-  const _ = await importPackage('lodash')
+  const { importPkg, error } = this.bajo.helper
+  const _ = await importPkg('lodash')
   if (_.isString(c)) c = { url: c }
   if (!_.has(c, 'path')) throw error('Connection must have path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: c })
   if (!_.has(c, 'name')) c.name = c.path
@@ -15,8 +15,8 @@ async function connBuilder (c) {
 }
 
 async function prepBroadcasts () {
-  const { importPackage, getConfig, error, getItemByName } = this.bajo.helper
-  const _ = await importPackage('lodash')
+  const { importPkg, getConfig, error, getItemByName } = this.bajo.helper
+  const _ = await importPkg('lodash')
   const opts = getConfig('bajoSerialport')
   let bcs = opts.broadcasts || []
   if (_.isPlainObject(bcs)) bcs = [bcs]
