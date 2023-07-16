@@ -4,10 +4,10 @@ const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterBy
 
 async function connBuilder (c) {
   const { importPkg, error } = this.bajo.helper
-  const _ = await importPkg('lodash')
-  if (_.isString(c)) c = { url: c }
-  if (!_.has(c, 'path')) throw error('Connection must have a path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: c })
-  if (!_.has(c, 'name')) c.name = c.path
+  const { isString, has, isPlainObject, isArray, isFunction } = await importPkg('lodash-es::bajo')
+  if (isString(c)) c = { url: c }
+  if (!has(c, 'path')) throw error('Connection must have a path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: c })
+  if (!has(c, 'name')) c.name = c.path
   c.options = c.options || {}
   c.options.parser = c.options.parser || { name: 'ReadlineParser', delimiter: '\r\n' }
   if (!parsers.includes(c.options.parser.name)) throw error(`Unknown parser '%s'`, c.options.parser.name, { code: 'BAJOSP_PARSER_UNKNOWN', connection: c })
@@ -16,17 +16,17 @@ async function connBuilder (c) {
 
 async function prepBroadcasts () {
   const { importPkg, getConfig, error, getItemByName } = this.bajo.helper
-  const _ = await importPkg('lodash')
+  const { isPlainObject, map, isArray, isFunction, isString } = await importPkg('lodash-es::bajo')
   const opts = getConfig('bajoSerialport')
   let bcs = opts.broadcasts || []
-  if (_.isPlainObject(bcs)) bcs = [bcs]
+  if (isPlainObject(bcs)) bcs = [bcs]
   for (const b of bcs) {
     if (!b.connection) throw error('A broadcast must be bound to a connection', { code: 'BAJOSP_BROADCAST_CONNECTION_MISSING' })
-    if (!_.map(opts.connections, 'name').includes(b.connection)) throw error(`Unknown connection  '%s'`, b.connection, { code: 'BAJOSP_BROADCAST_CONNECTION_UNKNOWN' })
+    if (!map(opts.connections, 'name').includes(b.connection)) throw error(`Unknown connection  '%s'`, b.connection, { code: 'BAJOSP_BROADCAST_CONNECTION_UNKNOWN' })
     if (!b.receiver) throw error('A broadcast must have destination', { code: 'BAJOSP_BROADCAST_DESTINATION_MISSING' })
-    if (!_.isArray(b.receiver)) b.receiver = [b.receiver]
-    if (_.isFunction(b.transformer)) b.transformer = await b.transformer.call(this)
-    else if (_.isString(b.transformer)) b.transformer = await getItemByName(b.transformer)
+    if (!isArray(b.receiver)) b.receiver = [b.receiver]
+    if (isFunction(b.transformer)) b.transformer = await b.transformer.call(this)
+    else if (isString(b.transformer)) b.transformer = await getItemByName(b.transformer)
   }
 }
 

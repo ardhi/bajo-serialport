@@ -1,10 +1,11 @@
-function getClient (name) {
-  const { _, getConfig, error } = this.bajo.helper
+async function getClient (name) {
+  const { getConfig, error, importPkg } = this.bajo.helper
+  const { find } = await importPkg('lodash-es::bajo')
   const opts = getConfig('bajoSerialport')
-  let conn = _.find(opts.connections, { name })
-  if (!conn) conn = _.find(opts.connections, { path: name })
+  let conn = find(opts.connections, { name })
+  if (!conn) conn = find(opts.connections, { path: name })
   if (!conn) throw error(`Unknown port with name/path '%s'`, name, { code: 'BAJOSP_UNKNOWN_PORT' })
-  return _.find(this.bajoSerialports.instances, { name: conn.name })
+  return find(this.bajoSerialports.instances, { name: conn.name })
 }
 
 export default getClient

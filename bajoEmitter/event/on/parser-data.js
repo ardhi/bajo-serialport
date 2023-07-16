@@ -1,16 +1,17 @@
 async function onParserData (conn, message, ...args) {
-  const { getConfig, _, log } = this.bajo.helper
+  const { getConfig, log, importPkg } = this.bajo.helper
   const { broadcast } = this.bajoEmitter.helper
+  const { find, get, isEmpty } = await importPkg('lodash-es::bajo')
   const cfg = getConfig('bajoSerialport')
   for (const b of cfg.broadcasts) {
     if (b.connection !== conn.name) continue
-    const c = _.find(cfg.connections, { name: b.connection })
+    const c = find(cfg.connections, { name: b.connection })
     const meta = {
       sender: `${conn.path}@bajoSerialport.${conn.name}`,
       receiver: b.receiver
     }
-    const sentences = _.get(c, 'options.decodeNmea', [])
-    if (_.isEmpty(sentences)) broadcast(message, meta)
+    const sentences = get(c, 'options.decodeNmea', [])
+    if (isEmpty(sentences)) broadcast(message, meta)
     if (!this.bajoCodec) return
     try {
       const transformer = b.transformer
