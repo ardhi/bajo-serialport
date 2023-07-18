@@ -3,7 +3,7 @@ const { SerialPort } = sp
 
 async function start () {
   const { importPkg, getConfig } = this.bajo.helper
-  const { omit, camelCase } = await importPkg('lodash-es::bajo')
+  const { omit, camelCase } = await importPkg('lodash-es')
   const { events } = this.bajoSerialport.helper
   const { emit } = this.bajoEmitter.helper
   const config = getConfig('bajoSerialport')
