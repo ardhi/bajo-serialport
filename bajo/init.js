@@ -2,16 +2,16 @@ const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterBy
   'PacketLengthParser', 'ReadlineParser', 'ReadyParser', 'RegexParser', 'SlipEncoder', 'SlipDecoder',
   'SpacePacketParser']
 
-async function connBuilder (c) {
+async function handler ({ item }) {
   const { importPkg, error } = this.bajo.helper
   const { isString, has } = await importPkg('lodash-es')
-  if (isString(c)) c = { url: c }
-  if (!has(c, 'path')) throw error('Connection must have a path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: c })
-  if (!has(c, 'name')) c.name = c.path
-  c.options = c.options || {}
-  c.options.parser = c.options.parser || { name: 'ReadlineParser', delimiter: '\r\n' }
-  if (!parsers.includes(c.options.parser.name)) throw error('Unknown parser \'%s\'', c.options.parser.name, { code: 'BAJOSP_PARSER_UNKNOWN', connection: c })
-  if (c.options.decodeNmea && !this.bajoCodec) throw error('To be able to decode NMEA, you need to load \'bajo-codec\' first', { code: 'BAJOSP_BAJOCODEC_MISSING' })
+  if (isString(item)) item = { url: item }
+  if (!has(item, 'path')) throw error('Connection must have a path', { code: 'BAJOSP_CONNECTION_PATH_MISSING', connection: item })
+  if (!has(item, 'name')) item.name = item.path
+  item.options = item.options || {}
+  item.options.parser = item.options.parser || { name: 'ReadlineParser', delimiter: '\r\n' }
+  if (!parsers.includes(item.options.parser.name)) throw error('Unknown parser \'%s\'', item.options.parser.name, { code: 'BAJOSP_PARSER_UNKNOWN', connection: item })
+  if (item.options.decodeNmea && !this.bajoCodec) throw error('To be able to decode NMEA, you need to load \'bajo-codec\' first', { code: 'BAJOSP_BAJOCODEC_MISSING' })
 }
 
 async function prepBroadcasts () {
@@ -31,9 +31,9 @@ async function prepBroadcasts () {
 }
 
 async function init () {
-  const { buildConnections } = this.bajo.helper
+  const { buildCollections } = this.bajo.helper
   await prepBroadcasts.call(this)
-  await buildConnections('bajoSerialport', connBuilder, ['name', 'path'])
+  await buildCollections({ handler, dupChecks: ['name', 'path'] })
 }
 
 export default init
