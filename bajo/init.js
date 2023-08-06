@@ -11,7 +11,10 @@ async function handler ({ item }) {
   item.options = item.options || {}
   item.options.parser = item.options.parser || { name: 'ReadlineParser', delimiter: '\r\n' }
   if (!parsers.includes(item.options.parser.name)) throw error('Unknown parser \'%s\'', item.options.parser.name)
-  if (item.options.decodeNmea && !this.bajoCodec) throw error('To be able to decode NMEA, you need to load \'bajo-codec\' first')
+  if (item.options.decodeNmea) {
+    if (item.options.decodeNmea === true) item.options.decodeNmea = { decoder: 'bajoCodec:nmeaDecode' }
+    if (item.options.decodeNmea.decoder === 'bajoCodec:nmeaDecode' && !this.bajoCodec) item.options.decodeNmea = false
+  }
   if (!has(item.options, 'broadcastPool')) item.options.broadcastPool = []
   if (!isArray(item.options.broadcastPool)) item.options.broadcastPool = [item.options.broadcastPool]
   item.options.broadcastPool = map(item.options.broadcastPool, b => {

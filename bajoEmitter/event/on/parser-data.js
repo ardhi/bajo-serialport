@@ -5,7 +5,7 @@ async function onParserData (conn, msg, ...args) {
     broadcast({
       msg,
       to: b,
-      from: `${conn.path}@${conn.name}.bajoSerialport`
+      from: `${conn.name}@bajoSerialport`
     })
   }
 }
