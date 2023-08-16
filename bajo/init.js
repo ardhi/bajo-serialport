@@ -8,8 +8,8 @@ async function handler ({ item }) {
   if (isString(item)) item = { url: item }
   if (!has(item, 'path')) throw error('Connection must have a path')
   if (!has(item, 'name')) item.name = item.path
-  item.options = item.options || {}
-  item.options.parser = item.options.parser || { name: 'ReadlineParser', delimiter: '\r\n' }
+  item.options = item.options ?? {}
+  item.options.parser = item.options.parser ?? { name: 'ReadlineParser', delimiter: '\r\n' }
   if (!parsers.includes(item.options.parser.name)) throw error('Unknown parser \'%s\'', item.options.parser.name)
   if (item.options.decodeNmea) {
     if (item.options.decodeNmea === true) item.options.decodeNmea = { decoder: 'bajoCodec:nmeaDecode' }

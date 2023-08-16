@@ -1,7 +1,7 @@
 async function onParserData (conn, msg, ...args) {
   // for broadcast only
   const { broadcast } = this.bajoEmitter.helper
-  for (const b of conn.options.broadcastPool || []) {
+  for (const b of conn.options.broadcastPool ?? []) {
     broadcast({
       msg,
       to: b,
