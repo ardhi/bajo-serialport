@@ -1,6 +1,6 @@
 {
   "name": "bajo-serialport",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Serialport for Bajo Framework",
   "main": "index.js",
   "scripts": {

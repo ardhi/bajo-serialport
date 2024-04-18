@@ -3,8 +3,8 @@ const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterBy
   'SpacePacketParser']
 
 async function handler ({ item }) {
-  const { importPkg, error } = this.bajo.helper
-  const { isString, has, isArray, map } = await importPkg('lodash-es')
+  const { error } = this.bajo.helper
+  const { isString, has, isArray, map } = this.bajo.helper._
   if (isString(item)) item = { url: item }
   if (!has(item, 'path')) throw error('Connection must have a path')
   if (!has(item, 'name')) item.name = item.path
