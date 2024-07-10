@@ -46,10 +46,8 @@ Example:
   "connections": [{
     "name": "usb1",
     "path": "/dev/tty-usbserial1",
-    "broadcast": true,
-    "options": {
-      "baudRate": 9600
-    }
+    "baudRate": 9600,
+    "broadcast": true
   }]
 }
 ```
