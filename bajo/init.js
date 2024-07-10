@@ -2,15 +2,11 @@ async function handler ({ item }) {
   const { error } = this.app.bajo.helper
   const { isString, has } = this.app.bajo.helper._
   const { parsers } = this.helper
-  if (isString(item)) item = { path: item }
   if (!has(item, 'path')) throw error('Connection must have a path')
-  item.options = item.options ?? {}
-  item.options.parser = item.options.parser ?? { name: 'ReadlineParser', delimiter: '\r\n' }
-  if (!parsers.includes(item.options.parser.name)) throw error('Unknown parser \'%s\'', item.options.parser.name)
-  if (item.options.decodeNmea) {
-    if (item.options.decodeNmea === true) item.options.decodeNmea = { decoder: 'bajoCodec:nmeaDecode' }
-    if (item.options.decodeNmea.decoder === 'bajoCodec:nmeaDecode' && !this.app.bajoCodec) item.options.decodeNmea = false
-  }
+  item.baudRate = item.baudRate ?? 38400
+  if (isString(item.parser)) item.parser = { name: item.parser }
+  item.parser = item.parser ?? { name: 'ReadlineParser', delimiter: '\r\n' }
+  if (!parsers.includes(item.parser.name)) throw error('Unknown parser \'%s\'', item.parser.name)
   item.broadcast = item.broadcast ?? false
 }
 
