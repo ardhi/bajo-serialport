@@ -35,10 +35,8 @@ Open/create ```<bajo-data-dir>/config/bajoSerialport.json```:
 | ```connections``` | ```array``` | no | ```[]``` | Define one or more connections |
 | &nbsp;&nbsp;```name``` | ```string``` | no | ```default``` | Connection name, must be unique among all your connections |
 | &nbsp;&nbsp;```path``` | ```string``` | yes || Path name, e.g: ```/dev/tty-usbserial1``` |
-| &nbsp;&nbsp;```options``` | ```object``` | no |||
-| &nbsp;&nbsp;&nbsp;&nbsp;```baudRate``` | ```integer``` | no || Baudrate |
-| &nbsp;&nbsp;&nbsp;&nbsp;```parser``` | ```string/object``` | no | ReadlineParser | Serialport parser |
-| &nbsp;&nbsp;&nbsp;&nbsp;```decodeNmea``` | ```boolean/object``` | no || Whether to message as NMEA message |
+| &nbsp;&nbsp;```baudRate``` | ```integer``` | no | ```38400``` | Baudrate |
+| &nbsp;&nbsp;```parser``` | ```string/object``` | no | ReadlineParser | Serialport parser |
 | &nbsp;&nbsp;```broadcast``` | ```boolean``` | no | ```false``` | Incoming messages are broadcastable by ```bajoEmitter``` |
 
 Example:
