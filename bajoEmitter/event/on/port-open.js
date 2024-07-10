@@ -1,6 +1,5 @@
 async function onPortOpen (conn, ...args) {
-  const { log } = this.bajo.helper
-  log.info('Port \'%s@%s\' is open', conn.path, conn.name)
+  this.log.debug('Port \'%s (%s)\' is open', conn.name, conn.path)
 }
 
 const portOpen = {

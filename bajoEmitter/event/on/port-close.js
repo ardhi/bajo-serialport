@@ -1,10 +1,7 @@
-async function onPortClose (conn, ...args) {
-  const { log } = this.bajo.helper
-  log.info('\'%s@%s\' is closed', conn.path, conn.name)
-}
-
 const portClose = {
-  handler: onPortClose,
+  handler: async function onPortClose (conn, ...args) {
+    this.log.trace('Connection \'%s\' is closed', conn.name)
+  },
   level: 1000
 }
 

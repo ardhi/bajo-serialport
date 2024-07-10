@@ -1,31 +1,22 @@
-const parsers = ['ByteLengthParser', 'CCTalkParser', 'DelimiterParser', 'InterByteTimeoutParser',
-  'PacketLengthParser', 'ReadlineParser', 'ReadyParser', 'RegexParser', 'SlipEncoder', 'SlipDecoder',
-  'SpacePacketParser']
-
 async function handler ({ item }) {
-  const { error } = this.bajo.helper
-  const { isString, has, isArray, map } = this.bajo.helper._
-  if (isString(item)) item = { url: item }
+  const { error } = this.app.bajo.helper
+  const { isString, has } = this.app.bajo.helper._
+  const { parsers } = this.helper
+  if (isString(item)) item = { path: item }
   if (!has(item, 'path')) throw error('Connection must have a path')
-  if (!has(item, 'name')) item.name = item.path
   item.options = item.options ?? {}
   item.options.parser = item.options.parser ?? { name: 'ReadlineParser', delimiter: '\r\n' }
   if (!parsers.includes(item.options.parser.name)) throw error('Unknown parser \'%s\'', item.options.parser.name)
   if (item.options.decodeNmea) {
     if (item.options.decodeNmea === true) item.options.decodeNmea = { decoder: 'bajoCodec:nmeaDecode' }
-    if (item.options.decodeNmea.decoder === 'bajoCodec:nmeaDecode' && !this.bajoCodec) item.options.decodeNmea = false
+    if (item.options.decodeNmea.decoder === 'bajoCodec:nmeaDecode' && !this.app.bajoCodec) item.options.decodeNmea = false
   }
-  if (!has(item.options, 'broadcastPool')) item.options.broadcastPool = []
-  if (!isArray(item.options.broadcastPool)) item.options.broadcastPool = [item.options.broadcastPool]
-  item.options.broadcastPool = map(item.options.broadcastPool, b => {
-    if (isString(b)) return { name: b }
-    return b
-  })
+  item.broadcast = item.broadcast ?? false
 }
 
 async function init () {
-  const { buildCollections } = this.bajo.helper
-  this.bajoSerialport.connections = await buildCollections({ handler, dupChecks: ['name', 'path'] })
+  const { buildCollections } = this.app.bajo.helper
+  this.connections = await buildCollections({ ns: this.name, handler, dupChecks: ['name', 'path'] })
 }
 
 export default init

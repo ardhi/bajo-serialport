@@ -1,17 +1,9 @@
-async function onParserData (conn, msg, ...args) {
-  // for broadcast only
-  const { broadcast } = this.bajoEmitter.helper
-  for (const b of conn.options.broadcastPool ?? []) {
-    broadcast({
-      msg,
-      to: b,
-      from: `${conn.name}@bajoSerialport`
-    })
-  }
-}
-
 const parserData = {
-  handler: onParserData,
+  handler: async function onParserData (conn, msg, ...args) {
+    const { broadcast } = this.app.bajoEmitter.helper
+    if (!conn.broadcast) return
+    broadcast({ from: `${conn.name}@bajoSerialport`, msg })
+  },
   level: 1
 }
 

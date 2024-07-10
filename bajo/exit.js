@@ -1,7 +1,8 @@
 async function exit () {
-  if (this.bajoSerialport.instances.length === 0) return
-  for (const i of this.bajoSerialport.instances) {
-    await i.client.port.close()
+  if (this.connections.length === 0) return
+  for (const c of this.connections) {
+    if (!c.instance) continue
+    await c.instance.port.close()
   }
 }
 
