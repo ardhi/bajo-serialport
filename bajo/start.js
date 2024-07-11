@@ -2,9 +2,8 @@ import * as sp from 'serialport'
 const { SerialPort } = sp
 
 async function start () {
-  const { omit, camelCase } = this.app.bajo.helper._
-  const { events } = this.helper
-  const { emit } = this.app.bajoEmitter.helper
+  const { omit, camelCase } = this.app.bajo.lib._
+  const { emit } = this.app.bajoEmitter
 
   for (const c of this.connections) {
     const opts = omit(c, ['name', 'parser', 'broadcast'])
@@ -12,8 +11,8 @@ async function start () {
     const optsParser = omit(c.parser, ['name'])
     const Parser = sp.default[c.parser.name]
     c.instance.parser = c.instance.port.pipe(new Parser(optsParser))
-    for (const k in events) {
-      for (const evt of events[k]) {
+    for (const k in this.events) {
+      for (const evt of this.events[k]) {
         c.instance[k].on(evt, async (...args) => {
           const key = camelCase(`${k} ${evt}`)
           if (key === 'parserData') {

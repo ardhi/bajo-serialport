@@ -1,7 +1,7 @@
 async function send ({ msg, to } = {}) {
-  const { error } = this.app.bajo.helper
-  const { find } = this.app.bajo.helper._
-  const { addressSplit } = this.app.bajoEmitter.helper
+  const { error } = this.app.bajo
+  const { find } = this.app.bajo.lib._
+  const { addressSplit } = this.app.bajoEmitter
   const { connection, plugin } = addressSplit(to)
   if (plugin !== this.name) return
   const c = find(this.connections, { name: connection })

@@ -1,6 +1,6 @@
 const parserData = {
   handler: async function onParserData (conn, msg, ...args) {
-    const { broadcast } = this.app.bajoEmitter.helper
+    const { broadcast } = this.app.bajoEmitter
     if (!conn.broadcast) return
     broadcast({ from: `${conn.name}@bajoSerialport`, msg })
   },
