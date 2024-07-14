@@ -1,11 +1,4 @@
 {
   "Connection must have a path": "Koneksi harus memiliki sebuah jalur",
-  "Unknown parser '%s'": "Parser '%s' tidak dikenal",
-  "To be able to decode NMEA, you need to load 'bajoCodec' first": "Untuk bisa men-decode NMEA, Anda harus memuat 'bajoCodec' terlebih dahulu",
-  "A broadcast must be bound to a connection": "Sebuah penyiaran harus terikan dengan salah satu koneksi",
-  "Unknown connection  '%s'": "Koneksi '%s' tidak dikenal",
-  "A broadcast must have destination": "Sebuah penyiaran harus memiliki tujuan",
-  "[%s] '%s' error: %s": "[%s] kesalahan: %s",
-  "[%s] '%s' (%s) is closed": "[%s] '%s' (%s) telah tertutup",
-  "[%s] Port '%s' (%s) is open": "[%s] Pintu '%s' (%s) telah terbuka"
+  "Unknown parser '%s'": "Parser '%s' tidak dikenal"
 }

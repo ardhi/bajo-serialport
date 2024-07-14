@@ -1,5 +1,5 @@
 async function onPortOpen (conn, ...args) {
-  this.log.debug('Connection \'%s\' is open', conn.name)
+  this.log.debug('Connection \'%s\' is %s', conn.name, this.print.write('open'))
 }
 
 const portOpen = {
