@@ -2,8 +2,8 @@ import * as sp from 'serialport'
 const { SerialPort } = sp
 
 async function start () {
+  const { runHook } = this.app.bajo
   const { omit, camelCase } = this.app.bajo.lib._
-  const { emit } = this.app.bajoEmitter
 
   for (const c of this.connections) {
     const opts = omit(c, ['name', 'parser', 'broadcast'])
@@ -17,8 +17,12 @@ async function start () {
           const key = camelCase(`${k} ${evt}`)
           if (key === 'parserData') {
             const [message] = args
-            emit(`bajoSerialport.${key}`, c, message)
-          } else emit(`bajoSerialport.${key}`, c, ...args)
+            if (this.app.bajoEmitter) this.app.bajoEmitter.emit(`${this.name}.${key}`, c, message)
+            await runHook(`${this.name}:${camelCase('on ' + key)}`, c, message)
+          } else {
+            if (this.app.bajoEmitter) this.app.bajoEmitter.emit(`${this.name}.${key}`, c, ...args)
+            await runHook(`${this.name}:${camelCase('on ' + key)}`, c, ...args)
+          }
         })
       }
     }
