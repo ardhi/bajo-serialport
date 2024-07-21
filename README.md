@@ -6,7 +6,7 @@ Plugin name: **bajoSerialport**, alias: **sp**
 
 > <br />**Attention**: I do NOT accept any pull request at the moment, thanks!<br /><br />
 
-Serialport binding for [Bajo Framework](https://github.com/ardhi/bajo). Require [Bajo Emitter](https://github.com/ardhi/bajo-emitter) to work correctly.
+Serialport binding for [Bajo](https://github.com/ardhi/bajo). If [Bajo Emitter](https://github.com/ardhi/bajo-emitter) is loaded, events & messages are also handled through Bajo Emitter processing system.
 
 ## Installation
 
@@ -51,6 +51,13 @@ Example:
   }]
 }
 ```
+
+## Hook
+
+- ```bajoSerialport:onParserData (conn, message)```
+- ```bajoSerialport:onPortClose (conn)```
+- ```bajoSerialport:onPortError (conn, error)```
+- ```bajoSerialport:onPortOpen (conn)```
 
 ## License
 
