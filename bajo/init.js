@@ -10,7 +10,7 @@ async function handler ({ item }) {
 
 async function init () {
   const { buildCollections } = this.app.bajo
-  this.connections = await buildCollections({ ns: this.name, handler, dupChecks: ['name', 'path'] })
+  this.connections = await buildCollections({ ns: this.name, handler, dupChecks: ['name', 'path'], container: 'connections' })
 }
 
 export default init
