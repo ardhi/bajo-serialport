@@ -1,9 +1,9 @@
-async function onPortOpen (conn, ...args) {
-  this.log.debug('Connection \'%s\' is %s', conn.name, this.print.write('open'))
+async function handler (conn, ...args) {
+  this.log.debug('connIs%s%s', conn.name, this.print.write('openedL'))
 }
 
 const portOpen = {
-  handler: onPortOpen,
+  handler,
   level: 1
 }
 

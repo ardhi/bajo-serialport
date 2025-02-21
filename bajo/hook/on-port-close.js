@@ -1,7 +1,9 @@
+async function handler (conn, ...args) {
+  this.log.trace('connIs%s%s', conn.name, this.print.write('closedL'))
+}
+
 const portClose = {
-  handler: async function onPortClose (conn, ...args) {
-    this.log.trace('Connection \'%s\' is %s', conn.name, this.print.write('closed'))
-  },
+  handler,
   level: 1000
 }
 

@@ -4,7 +4,7 @@ async function send ({ msg, to } = {}) {
   const { connection, plugin } = addressSplit(to)
   if (plugin !== this.name) return
   const c = find(this.connections, { name: connection })
-  if (!c) throw this.error('Unknown connection \'%s\'', connection)
+  if (!c) throw this.error('unknownConn%s', connection)
   c.instance.write(msg)
 }
 

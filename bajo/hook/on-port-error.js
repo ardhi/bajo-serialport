@@ -1,7 +1,9 @@
+async function handler (conn, err, ...args) {
+  this.log.error('connError%s%s', conn.name, err.message)
+}
+
 const portError = {
-  handler: async function onPortError (conn, err, ...args) {
-    this.log.error('Connection \'%s\' error: %s', conn.name, err.message)
-  },
+  handler,
   level: 1
 }
 
